@@ -38,7 +38,7 @@ function createManager() {
         }
     ]).then((response) => {
         const newManager = new Manager (response.name, response.id, response.email, response.officeID);
-        noconsole.log(newManager);
+        console.log(newManager);
         addEmployee();
         rosterInfo.push(newManager);
     })
@@ -57,17 +57,16 @@ function addEmployee(){
     }
   ]).then((response) => {
     switch(response.addEmployee){
-      case "Create Roster":
-        console.log("finalize");
-        break;
       case "Engineer":
         createEngineer();
         break;
       case "Intern":
         createIntern();
         break;
+      case "Create Roster":
+        buildRoster();
       default:
-        console.log("Call back last choice");
+        buildRoster();
     } 
   });
 };
@@ -93,12 +92,13 @@ function createEngineer() {
       {
           type: "input",
           message: "Link your github account:",
-          name: "officeID",
+          name: "github",
       }
   ]).then((response) => {
       const newEngineer = new Engineer (response.name, response.id, response.email, response.officeID);
       console.log(newEngineer);
       rosterInfo.push(newEngineer);
+      addEmployee();
   })
 };
 //create Intern
@@ -123,65 +123,26 @@ function createIntern() {
       {
           type: "input",
           message: "What school do/did you attend?",
-          name: "officeID",
+          name: "school",
       }
   ]).then((response) => {
       const newIntern = new Intern (response.name, response.id, response.email, response.officeID);
       console.log(newIntern);
       rosterInfo.push(newIntern);
+      addEmployee();
   })
 };
 //Build Roster Function
 
 function buildRoster(){
   //function to create ending file
-  //function writeFile(name, content){
-    fs.writeFileSync(path.join(process.cwd(), name), content);
+  TODO://need to create an if statement to handle if a file exists or not
+  TODO: //reference line 8-10 in build roster function
+  TODO://finish render roster.
+
+    fs.writeFileSync();
 } 
 
-
-//inquirer.prompt([
-  // {
-    //    type:"confirm",
-      //  message: "Begin Employee Creation?",
-        //name: "check",
-    //}
-//]).then((response) => {
-  //  if(response.check === true){
-        //console.log("it worked");
-    //    createEmployee();
-    //} else { 
-      //  console.log("Thank you, please try again later")
-    //}
-//});
-
-       // {
-         //   type: "confirm",
-           // message: `Finalize Employee?`,
-            //name: `finalize`
-            //},
-    //]).then((response) => {
-      //  if(response.finalize === true){
-        //    inquirer.prompt([
-          //      {
-            //    type: "list",
-               // message: `Would you like to create additional employees or render your current list?`,
-              //  name: `renderChoice`,
-                //choices: ["Create New Employee", "Render Current List"],
-              //  }
-            //]).then((response) => {
-               // if(response.renderChoice === "Create New Employee"){
-                 //  createEmployee();
-                //} else if(response.choices === "Render Current List"){
-                  // console.log(`Rendering current list`);
-                //}
-           // })
-        //}
-       
-    //}).then((response) => {
-        //if(response.finalize);
-    //}
-//}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
