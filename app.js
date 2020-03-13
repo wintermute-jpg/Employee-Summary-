@@ -37,16 +37,111 @@ function createManager() {
             name: "officeID",
         }
     ]).then((response) => {
-        const newManager = [response.name, response.id, response.email, response.officeID];
-
+        const newManager = new Manager (response.name, response.id, response.email, response.officeID);
+        noconsole.log(newManager);
+        addEmployee();
+        rosterInfo.push(newManager);
     })
 };
 
+createManager();
+//Functions:
+//Create Employee
+function addEmployee(){
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "Create new employee?",
+      name: "addEmployee",
+      choices: ["Engineer", "Intern", "Create Roster"]
+    }
+  ]).then((response) => {
+    switch(response.addEmployee){
+      case "Create Roster":
+        console.log("finalize");
+        break;
+      case "Engineer":
+        createEngineer();
+        break;
+      case "Intern":
+        createIntern();
+        break;
+      default:
+        console.log("Call back last choice");
+    } 
+  });
+};
+//Create Engineer
 function createEngineer() {
-    console.log("C")
-}
+  console.log("Creating new Engineer");
+  inquirer.prompt([
+      {
+          type: "input",
+          message: "Engineers name?",
+          name: 'name',
+      },
+      {
+          type: "input",
+          message: "Engineer ID?",
+          name: "id",
+      },
+      {
+          type: "input",
+          message: "Engineer email?",
+          name: "email",
+      },
+      {
+          type: "input",
+          message: "Link your github account:",
+          name: "officeID",
+      }
+  ]).then((response) => {
+      const newEngineer = new Engineer (response.name, response.id, response.email, response.officeID);
+      console.log(newEngineer);
+      rosterInfo.push(newEngineer);
+  })
+};
+//create Intern
+function createIntern() {
+  console.log("Creating new Intern");
+  inquirer.prompt([
+      {
+          type: "input",
+          message: "Interns name?",
+          name: 'name',
+      },
+      {
+          type: "input",
+          message: "Intern ID?",
+          name: "id",
+      },
+      {
+          type: "input",
+          message: "Intern email?",
+          name: "email",
+      },
+      {
+          type: "input",
+          message: "What school do/did you attend?",
+          name: "officeID",
+      }
+  ]).then((response) => {
+      const newIntern = new Intern (response.name, response.id, response.email, response.officeID);
+      console.log(newIntern);
+      rosterInfo.push(newIntern);
+  })
+};
+//Build Roster Function
+
+function buildRoster(){
+  //function to create ending file
+  //function writeFile(name, content){
+    fs.writeFileSync(path.join(process.cwd(), name), content);
+} 
+
+
 //inquirer.prompt([
-  //  {
+  // {
     //    type:"confirm",
       //  message: "Begin Employee Creation?",
         //name: "check",
@@ -59,62 +154,6 @@ function createEngineer() {
       //  console.log("Thank you, please try again later")
     //}
 //});
-
-//function createEmployee() {
-  //  console.log(`New Employee:`);
-    //inquirer.prompt([
-      //  {
-        //    type:"input",
-          //  message: `Employee ID?`,
-            //name: `id`,
-        //},
-        //{
-          //  type: `input`,
-            //message: `Employee Name?`,
-            //name: `name`,
-        //},
-        //{
-          //  type: "list",
-            //message: "Employee Role?",
-            //name: `role`,
-            //choices: ["Manager", "Engineer", "Intern"],
-        //}, 
-    //]).then((response) =>{
-      //  employeeSpecs(response);
-        
-    //});
-
-
-    //function employeeSpecs(response) {
-      //  if(response.role === "Manager"){
-        //    inquirer.prompt([
-          //      {
-            //        type: "input",
-              ///      message: "What is your office number, oh Great One?",
-                 //   name: "office"
-                //}
-            //])
-        //} else if(response.role === "Engineer"){
-          //  inquirer.prompt([
-           //     {
-             //       type: "input",
-              //      message: "Report your github profile, Engineer!",
-               //     name: "github",
-                //}
-            //])
-        //} else if(response.role === "Intern"){
-          //  inquirer.prompt([
-            //    {
-              //      type:"input",
-                //    message:"What school did you attend, intern?",
-                  //  name: "school",
-                //}
-            //])
-        //}
-    //}
-
-
-
 
        // {
          //   type: "confirm",
