@@ -8,76 +8,110 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
-
+const rosterInfo = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-inquirer.prompt([
-    {
-        type:"confirm",
-        message: "Begin Employee Creation?",
-        name: "check",
-    }
-]).then((response) => {
-    if(response.check === true){
-        //console.log("it worked");
-        createEmployee();
-    } else { 
-        console.log("Thank you, please try again later")
-    }
-});
 
-function createEmployee() {
-    console.log(`New Employee:`);
+//create manager function 
+function createManager() {
+    console.log("Creating new Emplolyee Roster");
     inquirer.prompt([
         {
-            type:"input",
-            message: `Employee ID?`,
-            name: `id`,
+            type: "input",
+            message: "Managers name?",
+            name: 'name',
         },
         {
-            type: `input`,
-            message: `Employee Name?`,
-            name: `name`,
+            type: "input",
+            message: "Manager ID?",
+            name: "id",
         },
         {
-            type: "list",
-            message: "Employee Role?",
-            name: `role`,
-            choices: ["Manager", "Engineer", "Intern"],
-        }, 
-    ]).then((response) =>{
-        employeeSpecs(response);
-        
-    });
-
-
-    function employeeSpecs(response) {
-        if(response.role === "Manager"){
-            inquirer.prompt([
-                {
-                    type: "input",
-                    message: "What is your office number, oh Great One?",
-                    name: "office"
-                }
-            ])
-        } else if(response.role === "Engineer"){
-            inquirer.prompt([
-                {
-                    type: "input",
-                    message: "Report your github profile, Engineer!",
-                    name: "github",
-                }
-            ])
-        } else if(response.role === "Intern"){
-            inquirer.prompt([
-                {
-                    type:"input",
-                    message:"What school did you attend, intern?",
-                    name: "school",
-                }
-            ])
+            type: "input",
+            message: "Manager email?",
+            name: "email",
+        },
+        {
+            type: "input",
+            message: "What is your office number?",
+            name: "officeID",
         }
-    }
+    ]).then((response) => {
+        const newManager = [response.name, response.id, response.email, response.officeID];
+
+    })
+};
+
+function createEngineer() {
+    console.log("C")
+}
+//inquirer.prompt([
+  //  {
+    //    type:"confirm",
+      //  message: "Begin Employee Creation?",
+        //name: "check",
+    //}
+//]).then((response) => {
+  //  if(response.check === true){
+        //console.log("it worked");
+    //    createEmployee();
+    //} else { 
+      //  console.log("Thank you, please try again later")
+    //}
+//});
+
+//function createEmployee() {
+  //  console.log(`New Employee:`);
+    //inquirer.prompt([
+      //  {
+        //    type:"input",
+          //  message: `Employee ID?`,
+            //name: `id`,
+        //},
+        //{
+          //  type: `input`,
+            //message: `Employee Name?`,
+            //name: `name`,
+        //},
+        //{
+          //  type: "list",
+            //message: "Employee Role?",
+            //name: `role`,
+            //choices: ["Manager", "Engineer", "Intern"],
+        //}, 
+    //]).then((response) =>{
+      //  employeeSpecs(response);
+        
+    //});
+
+
+    //function employeeSpecs(response) {
+      //  if(response.role === "Manager"){
+        //    inquirer.prompt([
+          //      {
+            //        type: "input",
+              ///      message: "What is your office number, oh Great One?",
+                 //   name: "office"
+                //}
+            //])
+        //} else if(response.role === "Engineer"){
+          //  inquirer.prompt([
+           //     {
+             //       type: "input",
+              //      message: "Report your github profile, Engineer!",
+               //     name: "github",
+                //}
+            //])
+        //} else if(response.role === "Intern"){
+          //  inquirer.prompt([
+            //    {
+              //      type:"input",
+                //    message:"What school did you attend, intern?",
+                  //  name: "school",
+                //}
+            //])
+        //}
+    //}
 
 
 
@@ -101,7 +135,7 @@ function createEmployee() {
                  //  createEmployee();
                 //} else if(response.choices === "Render Current List"){
                   // console.log(`Rendering current list`);
-                }
+                //}
            // })
         //}
        
