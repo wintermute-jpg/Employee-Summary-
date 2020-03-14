@@ -134,18 +134,15 @@ function createIntern() {
 };
 //Build Roster Function
 function buildRoster(){
-  //console.log(rosterInfo);
    var rendered = render(rosterInfo);
    console.log(rendered);
-    outputPath.push(rendered);
   //function to create ending file
-  //need to create an if statement to handle if a file exists or not
-   //reference line 8-10 in build roster function
   //finish render roster.
-
-    //fs.writeFileSync();
+    fs.writeFileSync(outputPath, rendered, (err) => {
+      if (err) throw err;
+      console.log("it worked");
+    });
 }
-
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
